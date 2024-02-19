@@ -4,7 +4,6 @@ import json
 class Category:
     """Класс категории"""
     total_categories = 0
-    total_products = 0
 
     def __init__(self, name: str, description: str):
         """
@@ -18,13 +17,11 @@ class Category:
         self.products = []
         Category.total_categories += 1
 
-    def count_unique_products(self):
-        """Возвращает количество уникальных продуктов в данной категории."""
-        return len(set(self.products))
-
 
 class Product:
     """Классы продукт"""
+
+    total_products = 0  # Атрибут класса для хранения общего количества продуктов
 
     def __init__(self, name: str, description: str, price: float, quantity: int):
         """
@@ -38,7 +35,7 @@ class Product:
         self.description = description
         self.price = price
         self.quantity = quantity
-        Category.total_products += 1
+        Product.total_products += 1  # Увеличиваем значение атрибута при создании нового продукта
 
 
 def load_data_from_json(filename):
@@ -55,10 +52,8 @@ def load_data_from_json(filename):
     return categories
 
 
-# Пример использования:
 categories = load_data_from_json('products.json')
 
-# Проверим результат
 for category in categories:
     print(f"Категория: {category.name}")
     print(f"Описание: {category.description}")
@@ -67,3 +62,6 @@ for category in categories:
             f" - Товар: {product.name}, Описание: {product.description}, Цена: {product.price},"
             f"Количество: {product.quantity}")
     print()
+
+print(f"Всего категорий: {Category.total_categories}")
+print(f"Общее количество продуктов: {Product.total_products}")
